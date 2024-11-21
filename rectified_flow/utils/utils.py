@@ -3,6 +3,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def visualize_2d_trajectories(
     trajectories_list: list[torch.Tensor],
     D1_gt_samples: torch.Tensor = None,
@@ -51,6 +52,7 @@ def visualize_2d_trajectories(
     # Add legend and adjust layout
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
+
 
 def set_seed(seed: int):
     random.seed(seed)

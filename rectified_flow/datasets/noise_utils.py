@@ -1,13 +1,12 @@
+#######################################################################################
+#
+# Utils for generating the D0 (noise distributions)
+#
+#######################################################################################
+
 import torch
 import torch.nn as nn
 import torch.distributions as dist
-
-
-def mixture_sample_with_labels(self, sample_shape=torch.Size()):
-    labels = self.mixture_distribution.sample(sample_shape)
-    all_samples = self.component_distribution.sample(sample_shape)
-    x_samples = all_samples[torch.arange(len(labels)), labels]
-    return x_samples, labels
 
 
 # Circular GMM Class
@@ -22,9 +21,6 @@ class CircularGMM(dist.MixtureSameFamily):
         # Initialize the MixtureSameFamily distribution
         super().__init__(dist.Categorical(weights), dist.Independent(dist.Normal(means, stds), 1))
 
-    def sample_with_labels(self, sample_shape=torch.Size()):
-        return mixture_sample_with_labels(self, sample_shape)
-
 
 # Two-point GMM Class
 class TwoPointGMM(dist.MixtureSameFamily):
@@ -36,6 +32,3 @@ class TwoPointGMM(dist.MixtureSameFamily):
 
         # Initialize the MixtureSameFamily distribution
         super().__init__(dist.Categorical(weights), dist.Independent(dist.Normal(means, stds), 1))
-
-    def sample_with_labels(self, sample_shape=torch.Size()):
-        return mixture_sample_with_labels(self, sample_shape)

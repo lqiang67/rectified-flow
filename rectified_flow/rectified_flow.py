@@ -11,6 +11,7 @@ from scipy.integrate import solve_ivp
 from typing import Any, Callable, Dict, List, Optional, Union, Tuple
 from dataclasses import dataclass
 
+
 def match_dim_with_data(
     t: torch.Tensor | float | List[float],
     X_shape: tuple,
