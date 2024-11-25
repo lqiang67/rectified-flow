@@ -1,7 +1,8 @@
-from .base_sampler import Sampler
+from rectified_flow.samplers.base_sampler import Sampler
 
 
 class SDESampler(Sampler):
+
     def __init__(self, e=lambda t: torch.ones_like(t), **kwargs):
         super().__init__(**kwargs)
         self.e = e

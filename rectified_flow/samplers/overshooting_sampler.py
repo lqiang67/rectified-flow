@@ -1,7 +1,8 @@
-from .base_sampler import Sampler
+from rectified_flow.samplers.base_sampler import Sampler
 
 
 class OverShootingSampler(Sampler):
+
     def __init__(self, c=1.0, overshooting_method='t + dt * (1 - t)', **kwargs):
         super().__init__(**kwargs)
         self.c = c

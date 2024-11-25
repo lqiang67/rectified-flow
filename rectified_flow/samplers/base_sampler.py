@@ -2,8 +2,8 @@ import torch
 import random
 import numpy as np
 
-from rectified_flow.rectified_flow import RectifiedFlow, match_dim_with_data
-from rectified_flow.utils.utils import set_seed
+from rectified_flow.rectified_flow import RectifiedFlow
+from rectified_flow.flow_components.utils import set_seed, match_dim_with_data
 
 
 class Sampler:

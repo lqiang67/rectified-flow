@@ -1,7 +1,8 @@
-from .base_sampler import Sampler
+from rectified_flow.samplers.base_sampler import Sampler
 
 
 class NoiseRefreshSampler(Sampler):
+
     def __init__(self, noise_replacement_rate=lambda t: 0.5, **kwargs): 
         super().__init__(**kwargs)  
         self.noise_replacement_rate = noise_replacement_rate

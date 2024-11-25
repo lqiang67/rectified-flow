@@ -1,6 +1,8 @@
-from .base_sampler import Sampler
+from rectified_flow.samplers.base_sampler import Sampler
+
 
 class CurvedEulerSampler(Sampler):
+
     def step(self, **model_kwargs):
         t, t_next, X_t = self.t, self.t_next, self.X_t
         v_t = self.get_velocity(**model_kwargs)

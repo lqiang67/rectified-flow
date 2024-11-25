@@ -1,7 +1,63 @@
-import torch
 import random
-import numpy as np
+import torch
 import matplotlib.pyplot as plt
+import numpy as np
+
+
+def match_dim_with_data(
+    t: Union[torch.Tensor, float, List[float]],
+    X_shape: tuple,
+    device: torch.device = torch.device("cpu"),
+    dtype: torch.dtype = torch.float32,
+    expand_dim: bool = True,
+) -> torch.Tensor:
+    """
+    Prepares the time tensor by reshaping it to match the dimensions of X.
+
+    Args:
+        t (Union[torch.Tensor, float, List[float]]): Time tensor, which can be:
+            - A scalar (float or 0-dimensional torch.Tensor)
+            - A list of floats with length equal to the batch size or length 1
+            - A torch.Tensor of shape (B,), (B, 1), or (1,)
+        X_shape (tuple): Shape of the tensor X, e.g., X.shape
+        device (torch.device): The device for the output tensor.
+        dtype (torch.dtype): The data type for the output tensor.
+        expand_dim (bool): If True, reshape the output to match the dimensions of X.
+
+    Returns:
+        torch.Tensor: Reshaped time tensor, ready for broadcasting with X.
+    """
+    B = X_shape[0]  # Batch size
+    ndim = len(X_shape)
+
+    # Convert `t` to a tensor on the specified device and dtype
+    if isinstance(t, float):
+        t = torch.full((B,), t, device=device, dtype=dtype)
+    elif isinstance(t, list):
+        if len(t) == 1:
+            t = torch.full((B,), t[0], device=device, dtype=dtype)
+        elif len(t) == B:
+            t = torch.tensor(t, device=device, dtype=dtype)
+        else:
+            raise ValueError(f"Length of t list ({len(t)}) does not match batch size ({B}) or is not 1.")
+    elif isinstance(t, torch.Tensor):
+        t = t.to(device=device, dtype=dtype)
+        if t.ndim == 0:  # Scalar tensor
+            t = t.repeat(B)
+        elif t.ndim == 1 and t.shape[0] == 1:  # Tensor of shape (1,)
+            t = t.repeat(B)
+        elif t.ndim == 2 and t.shape == (B, 1):  # Tensor of shape (B, 1)
+            t = t.squeeze(1)
+        elif t.shape[0] != B:  # Mismatched batch size
+            raise ValueError(f"Batch size of t ({t.shape[0]}) does not match X ({B}).")
+    else:
+        raise TypeError(f"t must be a float, list, or torch.Tensor, but got {type(t)}.")
+
+    # Expand dimensions to match X_shape
+    if expand_dim:
+        t = t.view(B, *([1] * (ndim - 1)))
+
+    return t
 
 
 def visualize_2d_trajectories(
