@@ -1,6 +1,6 @@
 # Rectified Flows
 A PyTorch codebase for various Rectified Flow models.
-![Alt text](assets/image.jpeg)
+![Alt text](assets/image.jpg)
 
 ---
 
