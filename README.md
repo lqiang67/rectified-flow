@@ -1,6 +1,13 @@
-# Rectified Flows
-A PyTorch codebase for various Rectified Flow models.
+<div align="center">
+
+# **Rectified Flows**
+____________________________________________________________
+
 ![Alt text](assets/image.jpg)
+
+</div>
+
+**Rectified Flows** is a repository that presents a unified and minimal codebase for implementing various diffusion and flow models.
 
 ---
 
