@@ -7,7 +7,7 @@ ____________________________________________________________
 
 </div>
 
-**Rectified Flows** is a repository that presents a unified and minimal codebase for implementing various diffusion and flow models.
+**Rectified Flows** is a unified and minimal codebase for various flow and diffusion models.
 
 ---
 
@@ -23,7 +23,7 @@ ____________________________________________________________
 - [License](#License)
 
 
-# Installtion
+# Installation
 Please run the following commands in the given order to install the dependency.
 ```
 conda create -n rf python=3.10
