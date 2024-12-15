@@ -1,7 +1,9 @@
+# Please update setup.py when modifying this file
+
 accelerate>=1.2.0
-clip==0.2.0
+clip@https://github.com/openai/CLIP/tarball/master#egg=clip-1.0.0
 diffusers>=0.31.0
-matplotlib==3.9.3
+matplotlib>=3.9.3
 numpy
 packaging
 Pillow
@@ -13,3 +15,5 @@ timm>=1.0.12
 torch>=2.5.0
 torchvision>=0.20.0
 tqdm
+ipykernel
+nbformat>=4.2.0

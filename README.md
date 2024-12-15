@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/logo_new2.png" alt="Logo" style="width: 75%; height: auto;">
+<img src="https://github.com/lqiang67/rectified-flow/blob/main/assets/logo_new2.png?raw=true" alt="Logo" style="width: 75%; height: auto;">
 
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) 
 [![Blog](https://img.shields.io/badge/blog-blue)](https://rectifiedflow.github.io)
@@ -9,7 +9,7 @@
 
 ______________________________________________________________________
 
-<img src="assets/header.png" alt="Header" style="width: 100%; height: auto;">
+<img src="https://github.com/lqiang67/rectified-flow/blob/main/assets/header.png?raw=true" alt="Header" style="width: 100%; height: auto;">
 </div>
 
 
@@ -50,8 +50,13 @@ Whether you are a researcher exploring the frontiers of generative modeling, a s
 
 # Installation
 
-Please run the following commands in the given order to install the dependency.
+You can install the `rectified-flow` package using `pip`:
 
+```
+pip install rectified-flow
+```
+
+Alternatively, you can install the package from source. Please run the following commands in the given order to install the dependency.
 
 ```
 conda create -n rf python=3.10
