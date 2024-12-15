@@ -1,4 +1,5 @@
 import torch
+import warnings
 from .base_sampler import Sampler
 from rectified_flow.rectified_flow import RectifiedFlow
 from rectified_flow.flow_components.interpolation_solver import AffineInterp
@@ -42,9 +43,8 @@ class StochasticCurvedEulerSampler(Sampler):
         elif isinstance(interp_inference, AffineInterp):
             self.interp_inference = interp_inference
         else:
-            raise ValueError(
-                "interp_inference must be 'natural', an AffineInterp object, or a string specifying the interpolation method"
-            )
+            warnings.warn("It is only theoretically correct to use this sampler when pi0 is a zero mean Gaussian "
+                          "and the coupling (X0, X1) is independent. Proceed at your own risk.")
         
         assert (
             self.rectified_flow.independent_coupling
@@ -60,7 +60,7 @@ class StochasticCurvedEulerSampler(Sampler):
         v_t = v_t.to(torch.float32)
 
         # Given x_t and dot_x_t = vt, find the corresponding endpoints x_0 and x_1
-        interp = self.rectified_flow.interp.solve(t, x_t=x_t, dot_x_t=v_t)
+        interp = self.interp_inference.solve(t, x_t=x_t, dot_x_t=v_t)
         x_1_pred = interp.x_1
         x_0_pred = interp.x_0
 
