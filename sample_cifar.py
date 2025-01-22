@@ -20,10 +20,10 @@ torch.backends.cudnn.allow_tf32 = True
 seed = 0
 device = "cuda"
 
-batch_size = 500  # number of samples each iteration
-iterations = 20  # batch_size * iterations = total number of samples
-#num_steps_list = [16, 32, 64, 128, 256, 512, 1024]
-num_steps_list = [256, 512, 1024]
+batch_size = 5000  # number of samples each iteration
+iterations = 2  # batch_size * iterations = total number of samples
+num_steps_list = [16, 32, 64, 128, 256, 512, 1024]
+#num_steps_list = [256, 512, 1024]
 
 
 def sample_loop(sampler, current_output_dir):
