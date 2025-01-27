@@ -85,7 +85,7 @@ class Sampler:
             self.time_grid = None
 
         self.callbacks = callbacks or []
-        self.record_traj_period = record_traj_period if record_traj_period else num_steps
+        self.record_traj_period = record_traj_period if record_traj_period else self.num_steps
 
         # Initialize sampling state
         self.num_samples = num_samples
