@@ -35,11 +35,11 @@ class EMAModel:
     def __init__(
         self, 
         net: torch.nn.Module, 
-        ema_halflife_kimg: float = 500.0, 
+        ema_halflife_kimg: float = 2000.0, 
         ema_rampup_ratio: float = 0.05,
     ):
         self.net = net
-        self.ema = copy.deepcopy(net).eval()
+        self.ema = copy.deepcopy(net).eval().float()
         for param in self.ema.parameters():
             param.requires_grad_(False)
         self.ema_halflife_kimg = ema_halflife_kimg
@@ -59,17 +59,17 @@ class EMAModel:
         if self.ema_rampup_ratio is not None:
             ema_halflife_nimg = min(ema_halflife_nimg, cur_nimg * self.ema_rampup_ratio)
 
-        ema_beta = 0.5 ** (batch_size / max(ema_halflife_nimg, 1e-8))
+        beta = 0.5 ** (batch_size / max(ema_halflife_nimg, 1e-8))
 
         for p_ema, p_net in zip(self.ema.parameters(), self.net.parameters()):
-            p_ema.copy_(p_net.detach().lerp(p_ema, ema_beta))
+            p_ema.copy_((p_net.float()).lerp(p_ema, beta))
 
     def apply_shadow(self):
         """
         Copy EMA parameters back to the original `net`.
         """
         for p_net, p_ema in zip(self.net.parameters(), self.ema.parameters()):
-            p_net.data.copy_(p_ema.data)
+            p_net.data.copy_(p_ema.data.to(p_net.dtype))
 
     def save_pretrained(self, save_directory: str, filename: str = "unet"):
         """
@@ -89,10 +89,9 @@ class EMAModel:
         output_model_file = os.path.join(save_directory, f"{filename}_ema.pt")
         if os.path.exists(output_model_file):
             state_dict = torch.load(output_model_file, map_location="cpu")
-            self.ema.load_state_dict(state_dict, strict=False)
+            self.ema.load_state_dict(state_dict, strict=True)
             net_device = next(self.net.parameters()).device
-            net_dtype = next(self.net.parameters()).dtype
-            self.ema.to(device=net_device, dtype=net_dtype)
+            self.ema.to(device=net_device, dtype=torch.float32)
             print(f"EMA weights loaded from {output_model_file}")
         else:
             print(f"No EMA weights found at {output_model_file}")
