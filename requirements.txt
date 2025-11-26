@@ -8,6 +8,7 @@ numpy
 packaging
 Pillow
 plotly
+einops
 scikit_learn
 scipy
 sympy

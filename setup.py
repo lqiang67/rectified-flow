@@ -26,6 +26,7 @@ setup(
         "diffusers>=0.31.0",
         "matplotlib>=3.9.3",
         "numpy",
+        "einops",
         "packaging",
         "Pillow",
         "plotly",

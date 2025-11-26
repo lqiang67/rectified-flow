@@ -181,6 +181,13 @@ We provide **[Diffusers](https://github.com/huggingface/diffusers)-style** train
 
 - **UNet CIFAR10**: Trained for $300 \text{k}$ iterations with `batch_size=256`. You can download the model [here](https://drive.google.com/file/d/16DKMPtR1-Dhy21F8WNzkDtXc7bcoCFjW/view?usp=drive_link). $\text{FID}_{50\text{K}}=2.496$.
 - **DiT CIFAR10**: Trained for $1000 \text{k}$ iterations with `batch_size=128`. You can download the model [here](). $\text{FID}_{50\text{K}}=3.678$.
+- **LightningDiT ImageNet-256 (XL, 400k steps)**: $\text{FID}_{50\text{K}}$/IS/Precision/Recall with Euler sampling and CFG guidance interval $[0.125, 1]$:
+
+  | NFE | CFG $\omega$ | FID$_{50\text{K}}$ | IS | Precision | Recall |
+  | --- | --- | --- | --- | --- | --- |
+  | 64  | 1.4 | 1.462 | 271.34 | 0.803 | 0.625 |
+  | 32  | 1.6 | 1.639 | 305.82 | 0.822 | 0.605 |
+  | 16  | 1.6 | 1.993 | 291.80 | 0.819 | 0.594 |
 
 **Loading a Pretrained Model**:
 
@@ -364,4 +371,3 @@ If you find this repository useful for your research, please consider citing
 | Component | License                                                      |
 | --------- | ------------------------------------------------------------ |
 | Codebase  | [MIT License](LICENSE)                                       |
-
